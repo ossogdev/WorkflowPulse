@@ -622,32 +622,7 @@ input::placeholder {
   justify-content: space-between;
   margin-bottom: 1.6rem;
   padding-bottom: 1.2rem;
-.top-bar-left {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.nav-controls-group {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.nav-ctrl-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0 0.65rem;
-}
-
-#brandHeaderBtn {
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-#brandHeaderBtn:hover {
-  transform: scale(1.03);
+  border-bottom: 1px solid var(--line);
 }
 
 .wf-selector-box {

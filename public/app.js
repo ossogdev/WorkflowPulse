@@ -7,8 +7,6 @@ let selectedRowIndices = new Set();
 let allLogs = [];
 let currentLogFilter = 'all';
 let pendingTriggerAction = null;
-let tabHistoryStack = [];
-let currentActiveTab = 'dispatchTab';
 
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
@@ -28,18 +26,6 @@ function initApp() {
 function setupEventListeners() {
   document.getElementById('loginForm').addEventListener('submit', handleLogin);
   document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-
-  const brandHeaderBtn = document.getElementById('brandHeaderBtn');
-  if (brandHeaderBtn) brandHeaderBtn.addEventListener('click', goHome);
-
-  const asideBrandBtn = document.querySelector('.aside-brand');
-  if (asideBrandBtn) asideBrandBtn.addEventListener('click', goHome);
-
-  const navBackBtn = document.getElementById('navBackBtn');
-  if (navBackBtn) navBackBtn.addEventListener('click', goBack);
-
-  const navHomeBtn = document.getElementById('navHomeBtn');
-  if (navHomeBtn) navHomeBtn.addEventListener('click', goHome);
 
   const togglePwdBtn = document.getElementById('togglePasswordBtn');
   if (togglePwdBtn) {
@@ -226,40 +212,15 @@ async function showAppLayout() {
   await loadLogs();
 }
 
-function switchTab(tabId, pushHistory = true) {
-  if (pushHistory && currentActiveTab && currentActiveTab !== tabId) {
-    tabHistoryStack.push(currentActiveTab);
-  }
-  currentActiveTab = tabId;
-
+function switchTab(tabId) {
   document.querySelectorAll('.tab-page').forEach(page => page.classList.add('hidden'));
   document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
 
-  const targetPage = document.getElementById(tabId);
-  if (targetPage) targetPage.classList.remove('hidden');
-
+  document.getElementById(tabId).classList.remove('hidden');
   const navBtn = document.querySelector(`[data-tab="${tabId}"]`);
   if (navBtn) navBtn.classList.add('active');
 
   if (tabId === 'historyTab') loadLogs();
-}
-
-function goHome() {
-  if (currentActiveTab !== 'dispatchTab') {
-    tabHistoryStack.push(currentActiveTab);
-  }
-  switchTab('dispatchTab', false);
-  const singleBtn = document.getElementById('modeSingleBtn');
-  if (singleBtn) singleBtn.click();
-}
-
-function goBack() {
-  if (tabHistoryStack.length > 0) {
-    const prevTab = tabHistoryStack.pop();
-    switchTab(prevTab, false);
-  } else {
-    goHome();
-  }
 }
 
 async function loadBaseUrls() {
