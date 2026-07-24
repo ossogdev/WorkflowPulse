@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3200;
+const PORT = process.env.PORT || 3201;
+const HOST = process.env.HOST || "0.0.0.0";
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -212,6 +213,6 @@ app.get('/api/logs', (req, res) => {
   res.json({ ok: true, logs: store.logs || [] });
 });
 
-app.listen(PORT, () => {
-  console.log(`WorkflowPulse server running on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`WorkflowPulse listening on http://${HOST}:${PORT} (independent product — not under workflow.conversely.in)`);
 });
