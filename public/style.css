@@ -74,17 +74,21 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/* Brand mark — dark tile with saffron pulse dot */
+/* Brand mark — isolated vector icon with saffron pulse glow */
 .brand-mark {
   display: block;
-  border-radius: 9px;
+  border-radius: 12px;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(244, 120, 32, 0.2);
+  object-fit: cover;
+  background: #090d16;
+  border: 1px solid rgba(244, 120, 32, 0.25);
+  box-shadow: 0 6px 20px rgba(244, 120, 32, 0.25);
 }
 
 .brand-mark-sm {
-  border-radius: 7px;
-  box-shadow: none;
+  border-radius: 10px;
+  border: 1px solid rgba(244, 120, 32, 0.18);
+  box-shadow: 0 2px 8px rgba(244, 120, 32, 0.15);
 }
 
 .brand-title {
