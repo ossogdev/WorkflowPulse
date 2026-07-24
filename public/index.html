@@ -7,38 +7,57 @@
   <meta name="description" content="Voice workflow dispatch and batch execution">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="loginSection" class="auth-wrapper">
-    <div class="login-center">
-      <div class="login-brand">
-        <div class="wordmark" aria-hidden="true">WP</div>
-        <div>
-          <div class="product-name">WorkflowPulse</div>
-          <div class="product-tag">Dispatch console</div>
+    <div class="auth-shell">
+      <aside class="auth-aside">
+        <div class="aside-brand">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="30" height="30" rx="8" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+              <path d="M7 18c2-6 4-9 5.5-9s2.5 8 4 8 2.5-5 4-5 2.5 3 4.5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div>
+            <strong>WorkflowPulse</strong>
+            <span>Dispatch module</span>
+          </div>
         </div>
-      </div>
 
-      <div class="login-card">
-        <h1>Sign in</h1>
-        <p class="lede">Use your ops account to open the dispatch console.</p>
-        <form id="loginForm">
-          <div class="field">
-            <label for="loginUsername">Username</label>
-            <input type="text" id="loginUsername" autocomplete="username" required>
-          </div>
-          <div class="field">
-            <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" autocomplete="current-password" required>
-          </div>
-          <button type="submit" class="btn primary-btn btn-block">Sign in</button>
-        </form>
-        <div id="loginError" class="alert error-alert hidden"></div>
-      </div>
+        <div class="aside-copy">
+          <h1>Trigger voice workflows without the mess.</h1>
+          <p>Friendly names, single dispatch, and CSV batch runs — pointed at any environment you configure.</p>
+          <ul class="feature-list">
+            <li>Display names instead of raw workflow IDs</li>
+            <li>Single call + CSV batch engine</li>
+            <li>Admin-managed target base URLs</li>
+          </ul>
+        </div>
 
-      <p class="login-foot">Standalone module · playground</p>
+        <p class="aside-foot">Standalone product · playground</p>
+      </aside>
+
+      <main class="auth-main">
+        <div class="login-card">
+          <h2>Sign in</h2>
+          <p class="lede">Ops account for dispatch and batch execution.</p>
+          <form id="loginForm">
+            <div class="field">
+              <label for="loginUsername">Username</label>
+              <input type="text" id="loginUsername" placeholder="username" required autocomplete="username">
+            </div>
+            <div class="field">
+              <label for="loginPassword">Password</label>
+              <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn primary-btn btn-block">Continue to dashboard</button>
+          </form>
+          <div id="loginError" class="alert error-alert hidden"></div>
+        </div>
+      </main>
     </div>
   </div>
 
@@ -46,7 +65,12 @@
     <aside class="sidebar">
       <div class="sidebar-top">
         <div class="brand-header">
-          <div class="wordmark wordmark-sm" aria-hidden="true">WP</div>
+          <span class="mark mark-sm" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="30" height="30" rx="8" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+              <path d="M7 18c2-6 4-9 5.5-9s2.5 8 4 8 2.5-5 4-5 2.5 3 4.5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
           <span class="brand-name">WorkflowPulse</span>
         </div>
         <nav class="nav-menu">
