@@ -1,0 +1,110 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin",
+      "name": "Admin User"
+    },
+    {
+      "id": "u2",
+      "username": "shrey",
+      "password": "shrey123",
+      "role": "user",
+      "name": "Shrey"
+    }
+  ],
+  "baseUrls": [
+    {
+      "id": "b1",
+      "name": "Production",
+      "url": "https://production.conversely.in"
+    },
+    {
+      "id": "b2",
+      "name": "Voice1",
+      "url": "https://voice1.conversely.in"
+    },
+    {
+      "id": "b3",
+      "name": "Playground / Dev",
+      "url": "https://workflow.conversely.in"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "wf_1",
+      "displayName": "VAMA Gotra",
+      "workflowId": "wf_gotra",
+      "companyId": "3a4fc4a1-30ae-4cfd-a352-b1d3039da6c4",
+      "baseUrl": "https://production.conversely.in",
+      "isActive": true,
+      "fields": [
+        {
+          "key": "name",
+          "label": "Full Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "mobile",
+          "label": "Mobile Number",
+          "type": "phone",
+          "required": true
+        },
+        {
+          "key": "gotra",
+          "label": "Gotra Name",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "wf_2",
+      "displayName": "Revamped Election Survey",
+      "workflowId": "WF_REELECTION",
+      "companyId": "3a4fc4a1-30ae-4cfd-a352-b1d3039da6c4",
+      "baseUrl": "https://workflow.conversely.in",
+      "isActive": true,
+      "fields": [
+        {
+          "key": "name",
+          "label": "Voter Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "mobile",
+          "label": "Mobile Number",
+          "type": "phone",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "wf_3",
+      "displayName": "Discvr Mutual Funds",
+      "workflowId": "WF_FLOW01",
+      "companyId": "3a4fc4a1-30ae-4cfd-a352-b1d3039da6c4",
+      "baseUrl": "https://workflow.conversely.in",
+      "isActive": true,
+      "fields": [
+        {
+          "key": "name",
+          "label": "Customer Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "mobile",
+          "label": "Mobile Number",
+          "type": "phone",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "logs": []
+}
