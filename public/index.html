@@ -3,30 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WorkflowPulse — Voice Workflow Dispatcher</title>
+  <title>WorkflowPulse — Next-Gen Voice Workflow Dispatcher</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-blur-glow bg-glow-1"></div>
+  <div class="bg-blur-glow bg-glow-2"></div>
+
   <div id="loginSection" class="auth-wrapper">
     <div class="glass-card auth-card">
-      <div class="brand">
-        <span class="logo-icon">⚡</span>
-        <h2>WorkflowPulse</h2>
+      <div class="brand-header">
+        <div class="logo-box">
+          <svg class="logo-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h2>WorkflowPulse</h2>
+          <span class="version-tag">PRO 2.0</span>
+        </div>
       </div>
-      <p class="subtitle">Voice Workflow Dispatch & Batch Execution Panel</p>
+      <p class="subtitle">Voice Workflow Dispatch & Batch Execution Hub</p>
+      
       <form id="loginForm">
         <div class="form-group">
           <label>Username</label>
-          <input type="text" id="loginUsername" placeholder="e.g. shrey or admin" required>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input type="text" id="loginUsername" placeholder="Enter your username" required autocomplete="username">
+          </div>
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" required>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+          </div>
         </div>
-        <button type="submit" class="btn primary-btn btn-block">Sign In</button>
+        <button type="submit" class="btn primary-btn btn-block btn-glow">
+          <span>Sign In to Dashboard</span>
+          <span class="arrow-icon">→</span>
+        </button>
       </form>
       <div id="loginError" class="alert error-alert hidden"></div>
     </div>
@@ -34,36 +54,53 @@
 
   <div id="appSection" class="app-layout hidden">
     <aside class="sidebar">
-      <div class="brand">
-        <span class="logo-icon">⚡</span>
-        <span class="brand-name">WorkflowPulse</span>
+      <div class="sidebar-top">
+        <div class="brand-header">
+          <div class="logo-box logo-box-sm">
+            <svg class="logo-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <span class="brand-name">WorkflowPulse</span>
+        </div>
+        <nav class="nav-menu">
+          <button class="nav-item active" data-tab="dispatchTab">
+            <span class="nav-icon">⚡</span>
+            <span>Dispatch Calls</span>
+          </button>
+          <button class="nav-item" data-tab="historyTab">
+            <span class="nav-icon">📊</span>
+            <span>Call History & Logs</span>
+          </button>
+          <button id="adminNavBtn" class="nav-item hidden" data-tab="adminTab">
+            <span class="nav-icon">⚙️</span>
+            <span>Admin Settings</span>
+          </button>
+        </nav>
       </div>
-      <nav class="nav-menu">
-        <button class="nav-item active" data-tab="dispatchTab">
-          <span class="nav-icon">📞</span> Dispatch Calls
-        </button>
-        <button class="nav-item" data-tab="historyTab">
-          <span class="nav-icon">📊</span> Call Logs & History
-        </button>
-        <button id="adminNavBtn" class="nav-item hidden" data-tab="adminTab">
-          <span class="nav-icon">⚙️</span> Admin Settings
-        </button>
-      </nav>
-      <div class="user-profile">
+
+      <div class="user-profile-card">
         <div class="avatar" id="userAvatar">U</div>
         <div class="user-info">
           <div class="user-name" id="userName">User</div>
           <div class="user-role" id="userRole">Operator</div>
         </div>
-        <button id="logoutBtn" class="icon-btn" title="Logout">🚪</button>
+        <button id="logoutBtn" class="logout-icon-btn" title="Logout">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+          </svg>
+        </button>
       </div>
     </aside>
 
     <main class="main-content">
       <header class="top-bar">
-        <div class="wf-selector-bar">
-          <label for="workflowSelect">Active Workflow:</label>
-          <select id="workflowSelect" class="styled-select"></select>
+        <div class="wf-selector-box">
+          <span class="wf-label">ACTIVE WORKFLOW</span>
+          <div class="select-wrapper">
+            <select id="workflowSelect" class="styled-select"></select>
+            <span class="select-chevron">▾</span>
+          </div>
         </div>
         <div class="env-badge" id="envBadge">
           <span class="pulse-dot"></span>
@@ -72,48 +109,70 @@
       </header>
 
       <section id="dispatchTab" class="tab-page active">
-        <div class="mode-tabs">
-          <button id="modeSingleBtn" class="mode-tab active">Single Call Form</button>
-          <button id="modeBatchBtn" class="mode-tab">CSV Batch Trigger</button>
+        <div class="mode-tabs-wrapper">
+          <div class="mode-tabs">
+            <button id="modeSingleBtn" class="mode-tab active">
+              <span>👤 Single Call Dispatch</span>
+            </button>
+            <button id="modeBatchBtn" class="mode-tab">
+              <span>📁 CSV Batch Execution</span>
+            </button>
+          </div>
         </div>
 
-        <div id="singleCallSection" class="panel-card">
-          <h3>Single Voice Call Dispatch</h3>
-          <p class="panel-desc">Fill out customer details to trigger an instant single voice call.</p>
+        <div id="singleCallSection" class="glass-card main-panel">
+          <div class="panel-header-box">
+            <div class="panel-title-group">
+              <h3>Single Call Dispatch</h3>
+              <p class="panel-desc">Fill out parameters to trigger an instant voice call.</p>
+            </div>
+            <span class="live-status-pill">Ready to Dispatch</span>
+          </div>
+
           <form id="dynamicSingleForm" class="dynamic-form-grid"></form>
-          <div class="form-actions">
-            <button id="triggerSingleBtn" class="btn primary-btn">
-              <span>📞 Trigger Voice Call</span>
+
+          <div class="form-actions-bar">
+            <button id="triggerSingleBtn" class="btn primary-btn btn-lg btn-glow">
+              <span class="btn-icon">📞</span>
+              <span>Trigger Voice Call Now</span>
             </button>
           </div>
           <div id="singleDispatchResult" class="dispatch-result hidden"></div>
         </div>
 
-        <div id="batchCallSection" class="panel-card hidden">
-          <h3>Batch CSV Trigger</h3>
-          <p class="panel-desc">Upload a CSV file to preview data, trigger individual calls, or run full batch execution.</p>
+        <div id="batchCallSection" class="glass-card main-panel hidden">
+          <div class="panel-header-box">
+            <div class="panel-title-group">
+              <h3>CSV Batch Dispatch Engine</h3>
+              <p class="panel-desc">Upload a CSV dataset to trigger individual or bulk automated calls.</p>
+            </div>
+          </div>
           
           <div class="upload-dropzone" id="csvDropzone">
             <input type="file" id="csvFileInput" accept=".csv" class="hidden">
             <div class="dropzone-content">
-              <span class="upload-icon">📁</span>
-              <p>Drag & drop your CSV here, or <strong>browse file</strong></p>
-              <span class="file-hint">Supported columns: Name, Mobile, Phone_No, Gotra, etc.</span>
+              <div class="upload-icon-circle">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                </svg>
+              </div>
+              <h4>Drop CSV file here or <span class="highlight">browse</span></h4>
+              <p class="file-hint">Auto-maps headers: Name, Mobile, Phone_No, Gotra, etc.</p>
             </div>
           </div>
 
-          <div id="batchTableContainer" class="table-container hidden">
+          <div id="batchTableContainer" class="table-card-wrapper hidden">
             <div class="table-toolbar">
               <div class="toolbar-left">
-                <span class="badge count-badge" id="rowCountBadge">0 Rows Loaded</span>
-                <button id="selectAllBtn" class="btn secondary-btn sm-btn">Select All</button>
+                <span class="badge count-badge" id="rowCountBadge">0 Records</span>
+                <button id="selectAllBtn" class="btn secondary-btn sm-btn">Toggle Select All</button>
               </div>
               <div class="toolbar-right">
-                <button id="triggerSelectedBtn" class="btn accent-btn sm-btn" disabled>
+                <button id="triggerSelectedBtn" class="btn accent-btn sm-btn btn-glow" disabled>
                   🚀 Trigger Selected (<span id="selectedCount">0</span>)
                 </button>
-                <button id="triggerFullBatchBtn" class="btn primary-btn sm-btn">
-                  ⚡ Trigger Full Batch
+                <button id="triggerFullBatchBtn" class="btn primary-btn sm-btn btn-glow">
+                  ⚡ Run Full Batch
                 </button>
               </div>
             </div>
@@ -131,21 +190,27 @@
       </section>
 
       <section id="historyTab" class="tab-page hidden">
-        <div class="panel-card">
-          <div class="panel-header">
-            <h3>Execution Logs & Call History</h3>
-            <button id="refreshLogsBtn" class="btn secondary-btn sm-btn">🔄 Refresh</button>
+        <div class="glass-card main-panel">
+          <div class="panel-header-box">
+            <div class="panel-title-group">
+              <h3>Execution Logs & Audit History</h3>
+              <p class="panel-desc">Real-time log of all single and batch voice call dispatches.</p>
+            </div>
+            <button id="refreshLogsBtn" class="btn secondary-btn sm-btn">
+              <span>🔄 Refresh Logs</span>
+            </button>
           </div>
+
           <div class="table-responsive">
             <table class="data-table">
               <thead>
                 <tr>
                   <th>Timestamp</th>
-                  <th>Workflow</th>
-                  <th>Target URL</th>
-                  <th>Recipient</th>
+                  <th>Workflow Name</th>
+                  <th>Target API Base URL</th>
+                  <th>Recipient / Batch</th>
                   <th>Status</th>
-                  <th>User</th>
+                  <th>Triggered By</th>
                 </tr>
               </thead>
               <tbody id="logsTableBody"></tbody>
@@ -156,10 +221,13 @@
 
       <section id="adminTab" class="tab-page hidden">
         <div class="grid-2col">
-          <div class="panel-card">
-            <div class="panel-header">
-              <h3>Workflow Configurations</h3>
-              <button id="addWorkflowBtn" class="btn primary-btn sm-btn">+ Add Workflow</button>
+          <div class="glass-card main-panel">
+            <div class="panel-header-box">
+              <div class="panel-title-group">
+                <h3>Workflows</h3>
+                <p class="panel-desc">Map internal workflow IDs to display names.</p>
+              </div>
+              <button id="addWorkflowBtn" class="btn primary-btn sm-btn">+ New Workflow</button>
             </div>
             <div class="table-responsive">
               <table class="data-table">
@@ -176,16 +244,19 @@
             </div>
           </div>
 
-          <div class="panel-card">
-            <div class="panel-header">
-              <h3>Target Base URLs Management</h3>
+          <div class="glass-card main-panel">
+            <div class="panel-header-box">
+              <div class="panel-title-group">
+                <h3>Target Environment Base URLs</h3>
+                <p class="panel-desc">Add or remove target deployment URLs.</p>
+              </div>
               <button id="addBaseUrlBtn" class="btn secondary-btn sm-btn">+ Add Target URL</button>
             </div>
             <div class="table-responsive">
               <table class="data-table">
                 <thead>
                   <tr>
-                    <th>Name</th>
+                    <th>Environment Name</th>
                     <th>Base URL</th>
                     <th>Actions</th>
                   </tr>
@@ -200,7 +271,7 @@
   </div>
 
   <div id="workflowModal" class="modal-backdrop hidden">
-    <div class="modal-card">
+    <div class="modal-card glass-card">
       <div class="modal-header">
         <h3 id="modalTitle">Add Workflow</h3>
         <button id="closeWfModalBtn" class="modal-close">&times;</button>
@@ -225,14 +296,14 @@
         </div>
         <div class="modal-actions">
           <button type="button" id="cancelWfModalBtn" class="btn secondary-btn">Cancel</button>
-          <button type="submit" class="btn primary-btn">Save Workflow</button>
+          <button type="submit" class="btn primary-btn btn-glow">Save Workflow</button>
         </div>
       </form>
     </div>
   </div>
 
   <div id="baseUrlModal" class="modal-backdrop hidden">
-    <div class="modal-card modal-sm">
+    <div class="modal-card glass-card modal-sm">
       <div class="modal-header">
         <h3>Add Target Environment Base URL</h3>
         <button id="closeBaseUrlModalBtn" class="modal-close">&times;</button>
@@ -248,7 +319,7 @@
         </div>
         <div class="modal-actions">
           <button type="button" id="cancelBaseUrlModalBtn" class="btn secondary-btn">Cancel</button>
-          <button type="submit" class="btn primary-btn">Add Base URL</button>
+          <button type="submit" class="btn primary-btn btn-glow">Add Base URL</button>
         </div>
       </form>
     </div>
