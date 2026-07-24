@@ -625,6 +625,42 @@ input::placeholder {
   border-bottom: 1px solid var(--line);
 }
 
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.home-btn {
+  height: 32px;
+  padding: 0 0.85rem;
+  background: var(--surface);
+  color: var(--ink-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.home-btn:hover {
+  border-color: var(--saffron);
+  color: var(--saffron-deep);
+  background: var(--saffron-soft);
+}
+
+.home-btn svg {
+  color: var(--saffron);
+  flex-shrink: 0;
+}
+
 .wf-selector-box {
   display: flex;
   align-items: center;

@@ -112,6 +112,12 @@ function setupEventListeners() {
   document.getElementById('cancelBaseUrlModalBtn').addEventListener('click', closeBaseUrlModalBtn);
   document.getElementById('baseUrlForm').addEventListener('submit', handleAddBaseUrl);
 
+  // Home button - jump back to Dispatch tab
+  const homeBtn = document.getElementById('homeBtn');
+  if (homeBtn) {
+    homeBtn.addEventListener('click', () => switchTab('dispatchTab'));
+  }
+
   // Production Caution Modal Handlers
   document.getElementById('closeProdModalBtn').addEventListener('click', closeProdModal);
   document.getElementById('cancelProdModalBtn').addEventListener('click', closeProdModal);
@@ -219,6 +225,15 @@ function switchTab(tabId) {
   document.getElementById(tabId).classList.remove('hidden');
   const navBtn = document.querySelector(`[data-tab="${tabId}"]`);
   if (navBtn) navBtn.classList.add('active');
+
+  const homeBtn = document.getElementById('homeBtn');
+  if (homeBtn) {
+    if (tabId === 'dispatchTab') {
+      homeBtn.classList.add('hidden');
+    } else {
+      homeBtn.classList.remove('hidden');
+    }
+  }
 
   if (tabId === 'historyTab') loadLogs();
 }
