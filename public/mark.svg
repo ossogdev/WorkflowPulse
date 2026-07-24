@@ -1,5 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
-  <rect width="40" height="40" rx="11" fill="#0E1219"/>
-  <path d="M9 22.5c1.6-5.2 3.1-8 4.4-8 1.7 0 2.3 7.2 3.6 7.2 1.4 0 2-4.6 3.5-4.6s2.1 2.8 3.7 5.4c1.1 1.8 2.4 2.5 4 2.5" stroke="#F4F6FA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="29.5" cy="25" r="1.8" fill="#3B82F6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="60%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#f47820"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#f47820" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  
+  <!-- Pulse Waveform -->
+  <path d="M 8 52 C 18 52 22 52 27 52 C 32 52 35 22 41 22 C 47 22 50 78 57 78 C 63 78 66 42 72 42 C 76 42 79 48 83 48" 
+        fill="none" 
+        stroke="url(#waveGrad)" 
+        stroke-width="7" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
+        
+  <!-- Center Signal Node -->
+  <circle cx="57" cy="78" r="5" fill="#ffffff" stroke="#10b981" stroke-width="3" />
+
+  <!-- Outbound Dispatch Arrow -->
+  <g filter="url(#glow)">
+    <path d="M 66 42 L 88 20" fill="none" stroke="#f47820" stroke-width="7" stroke-linecap="round" />
+    <path d="M 72 18 L 90 18 L 90 36 Z" fill="#f47820" stroke="#f47820" stroke-width="2" stroke-linejoin="round" />
+  </g>
 </svg>
