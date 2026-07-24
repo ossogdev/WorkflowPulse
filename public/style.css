@@ -74,21 +74,29 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/* Brand mark — isolated vector icon with saffron pulse glow */
+/* Brand mark — clean logo mark without dark container box */
 .brand-mark {
   display: block;
-  border-radius: 12px;
+  border-radius: 8px;
   flex-shrink: 0;
-  object-fit: cover;
-  background: #090d16;
-  border: 1px solid rgba(244, 120, 32, 0.25);
-  box-shadow: 0 6px 20px rgba(244, 120, 32, 0.25);
+  object-fit: contain;
+  background: transparent;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 2px 6px rgba(244, 120, 32, 0.25));
+  transition: transform 0.2s ease;
+}
+
+.auth-aside .brand-mark {
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 4px 12px rgba(244, 120, 32, 0.4));
+}
+
+.brand-mark:hover {
+  transform: scale(1.04);
 }
 
 .brand-mark-sm {
-  border-radius: 10px;
-  border: 1px solid rgba(244, 120, 32, 0.18);
-  box-shadow: 0 2px 8px rgba(244, 120, 32, 0.15);
+  border-radius: 6px;
 }
 
 .brand-title {
@@ -351,7 +359,40 @@ input::placeholder {
   cursor: pointer;
 }
 
-/* Buttons */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 2.6rem;
+}
+
+.toggle-pwd-btn {
+  position: absolute;
+  right: 0.6rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.toggle-pwd-btn:hover {
+  color: var(--saffron);
+  transform: scale(1.1);
+}
+
+.toggle-pwd-btn:active {
+  transform: scale(0.95);
+}
+
+/* Buttons & Animations */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -367,7 +408,16 @@ input::placeholder {
   letter-spacing: 0.1em;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: all 0.15s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97) translateY(1px);
+}
+
+.primary-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--saffron-soft);
 }
 
 .btn:disabled {
