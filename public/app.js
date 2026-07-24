@@ -70,17 +70,17 @@ function setupEventListeners() {
   dropzone.addEventListener('click', () => fileInput.click());
   dropzone.addEventListener('dragover', (e) => {
     e.preventDefault();
-    dropzone.style.borderColor = 'var(--blue)';
-    dropzone.style.background = '#f0f9ff';
+    dropzone.style.borderColor = 'var(--saffron)';
+    dropzone.style.background = 'var(--saffron-soft)';
   });
   dropzone.addEventListener('dragleave', () => {
     dropzone.style.borderColor = 'var(--line-2)';
-    dropzone.style.background = '#f8fafc';
+    dropzone.style.background = 'var(--surface-2)';
   });
   dropzone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropzone.style.borderColor = 'var(--line-2)';
-    dropzone.style.background = '#f8fafc';
+    dropzone.style.background = 'var(--surface-2)';
     if (e.dataTransfer.files.length > 0) {
       handleCsvFile(e.dataTransfer.files[0]);
     }
