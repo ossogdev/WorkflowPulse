@@ -199,10 +199,12 @@ app.post('/api/trigger/batch', async (req, res) => {
     totalCount: items.length,
     successCount: results.filter(r => r.status === 'success').length,
     status: 'batch_completed',
+    results,
     triggeredBy: triggeredBy || 'anonymous',
     timestamp: new Date().toISOString()
   };
   store.logs.unshift(logEntry);
+  if (store.logs.length > 500) store.logs = store.logs.slice(0, 500);
   writeStore(store);
 
   res.json({ ok: true, total: items.length, results, log: logEntry });
