@@ -72,8 +72,8 @@
   <div id="appSection" class="app-layout hidden">
     <aside class="sidebar">
       <div class="sidebar-top">
-        <div class="brand-header">
-          <img class="brand-mark brand-mark-sm" src="mark.svg" width="42" height="42" alt="">
+        <div class="brand-header" id="brandHeaderBtn" title="Go to Home Dispatch">
+          <img class="brand-mark brand-mark-sm" src="mark.svg" width="42" height="42" alt="WorkflowPulse">
           <span class="brand-title brand-title-sm">Workflow<span class="brand-accent">Pulse</span></span>
         </div>
         <nav class="nav-menu">
@@ -106,10 +106,22 @@
 
     <main class="main-content">
       <header class="top-bar">
-        <div class="wf-selector-box">
-          <span class="wf-label">Active Workflow</span>
-          <div class="select-wrapper">
-            <select id="workflowSelect" class="styled-select"></select>
+        <div class="top-bar-left">
+          <div class="nav-controls-group">
+            <button id="navBackBtn" class="btn secondary-btn sm-btn nav-ctrl-btn" type="button" title="Go Back">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              <span>Back</span>
+            </button>
+            <button id="navHomeBtn" class="btn secondary-btn sm-btn nav-ctrl-btn" type="button" title="Go to Home Dispatch">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              <span>Home</span>
+            </button>
+          </div>
+          <div class="wf-selector-box">
+            <span class="wf-label">Active Workflow</span>
+            <div class="select-wrapper">
+              <select id="workflowSelect" class="styled-select"></select>
+            </div>
           </div>
         </div>
         <div class="env-badge" id="envBadge">
