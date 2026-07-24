@@ -21,8 +21,8 @@ local E:\therealsaitama\Edxso\WorkflowPulse
 | Repo | `ossogdev/WorkflowPulse` |
 | Server path | `/var/www/WorkflowPulse` |
 | Process | PM2 name `workflow-pulse` |
-| Port | **3201** (UFW already open on playground) |
-| Public interim URL | `http://142.93.213.101:3201/` |
+| Port | **3200** (own process; UFW allow 3200/tcp) |
+| Public interim URL | `http://142.93.213.101:3200/` |
 | Future hostname | `pulse.conversely.in` (DNS + nginx sample in `deploy/`) |
 
 ## Remove wrong nesting
@@ -32,6 +32,7 @@ If nginx still has `/pulse` under `piper-8088` / `workflow.conversely.in`, delet
 ## Env
 
 ```bash
-PORT=3201
+PORT=3200
 HOST=0.0.0.0
 ```
+
