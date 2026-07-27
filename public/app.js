@@ -861,7 +861,8 @@ async function handleSaveWorkflow(e) {
   const displayName = document.getElementById('wfModalDisplayName').value;
   const workflowId = document.getElementById('wfModalWorkflowId').value;
   const companyId = document.getElementById('wfModalCompanyId').value;
-  const baseUrl = document.getElementById('wfModalBaseUrlSelect').value;
+  const baseUrlSelect = document.getElementById('wfModalBaseUrlSelect');
+  const baseUrl = baseUrlSelect ? baseUrlSelect.value : (baseUrls[0]?.url || 'https://workflow.conversely.in');
 
   const fieldRows = document.querySelectorAll('#wfFieldsContainer .wf-field-row');
   const fields = [];
@@ -885,13 +886,15 @@ async function handleSaveWorkflow(e) {
     if (data.ok) {
       closeWorkflowModal();
       await loadWorkflows();
-      if (selectedWorkflow && (selectedWorkflow.id === id || selectedWorkflow.workflowId === workflowId)) {
-        selectedWorkflow = workflows.find(w => w.id === (id || selectedWorkflow.id)) || selectedWorkflow;
+      if (selectedWorkflow) {
+        selectedWorkflow = workflows.find(w => w.id === (id || selectedWorkflow.id) || w.workflowId === workflowId) || selectedWorkflow;
         renderWorkflowForm();
       }
+    } else {
+      alert('Error saving workflow: ' + (data.message || 'Unknown error'));
     }
   } catch (err) {
-    alert(err.message);
+    alert('Execution error: ' + err.message);
   }
 }
 

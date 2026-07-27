@@ -1235,10 +1235,12 @@ input::placeholder {
 
 .modal-card {
   width: 100%;
-  max-width: 520px;
+  max-width: 540px;
+  max-height: 86vh;
+  overflow-y: auto;
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 1.6rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--line);
 }
