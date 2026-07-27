@@ -104,6 +104,28 @@
           "required": true
         }
       ]
+    },
+    {
+      "id": "wf_1785131142121",
+      "displayName": "Credilla_NEFS",
+      "workflowId": "Credilla_NEFS",
+      "companyId": "09b53618-630a-46ee-a60d-799aff081e79",
+      "baseUrl": "https://voice1.conversely.in",
+      "isActive": true,
+      "fields": [
+        {
+          "key": "name",
+          "label": "Recipient Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "mobile",
+          "label": "Mobile Number",
+          "type": "phone",
+          "required": true
+        }
+      ]
     }
   ],
   "logs": []

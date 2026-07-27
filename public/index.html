@@ -165,6 +165,10 @@
               <h3>CSV Batch Trigger</h3>
               <p class="panel-desc">Upload a CSV dataset, review records, and execute batch queues.</p>
             </div>
+            <button id="downloadCsvTemplateBtn" class="btn secondary-btn sm-btn" type="button" title="Download sample CSV template for active workflow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download Sample CSV</span>
+            </button>
           </div>
 
           <div class="upload-dropzone" id="csvDropzone">
@@ -361,9 +365,15 @@
           <label for="wfModalCompanyId">Company ID</label>
           <input type="text" id="wfModalCompanyId" placeholder="3a4fc4a1-30ae-4cfd-a352-b1d3039da6c4" required>
         </div>
-        <div class="form-group">
-          <label for="wfModalBaseUrlSelect">Target Base URL</label>
-          <select id="wfModalBaseUrlSelect" class="styled-select" required></select>
+        <div class="form-group" style="margin-top: 1.2rem; border-top: 1px dashed var(--line); padding-top: 1rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem;">
+            <label style="margin: 0; font-weight: 700; color: var(--ink);">Workflow Input Parameters / Fields</label>
+            <button type="button" id="addWfFieldBtn" class="btn secondary-btn sm-btn">+ Add Field</button>
+          </div>
+          <p class="field-hint" style="font-size: 0.72rem; color: var(--muted); margin-bottom: 0.8rem; text-transform: none; letter-spacing: normal;">
+            Define dynamic input keys (e.g. <code>name</code>, <code>mobile</code>, <code>gotra</code>) entered during single call or matched in CSV batch columns.
+          </p>
+          <div id="wfFieldsContainer" class="wf-fields-list"></div>
         </div>
         <div class="modal-actions">
           <button type="button" id="cancelWfModalBtn" class="btn secondary-btn">Cancel</button>

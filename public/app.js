@@ -107,6 +107,16 @@ function setupEventListeners() {
   document.getElementById('cancelWfModalBtn').addEventListener('click', closeWorkflowModal);
   document.getElementById('workflowForm').addEventListener('submit', handleSaveWorkflow);
 
+  const addWfFieldBtn = document.getElementById('addWfFieldBtn');
+  if (addWfFieldBtn) {
+    addWfFieldBtn.addEventListener('click', () => addWfFieldRow('', '', 'text', false));
+  }
+
+  const downloadTemplateBtn = document.getElementById('downloadCsvTemplateBtn');
+  if (downloadTemplateBtn) {
+    downloadTemplateBtn.addEventListener('click', downloadCsvTemplate);
+  }
+
   document.getElementById('addBaseUrlBtn').addEventListener('click', openBaseUrlModal);
   document.getElementById('closeBaseUrlModalBtn').addEventListener('click', closeBaseUrlModalBtn);
   document.getElementById('cancelBaseUrlModalBtn').addEventListener('click', closeBaseUrlModalBtn);
@@ -308,14 +318,21 @@ function updateEnvBadge() {
 function renderWorkflowForm() {
   const form = document.getElementById('dynamicSingleForm');
   form.innerHTML = '';
-  if (!selectedWorkflow || !selectedWorkflow.fields) return;
+  if (!selectedWorkflow) return;
 
-  selectedWorkflow.fields.forEach(f => {
+  const fields = (selectedWorkflow.fields && selectedWorkflow.fields.length > 0)
+    ? selectedWorkflow.fields
+    : [
+        { key: 'name', label: 'Recipient Name', type: 'text', required: true },
+        { key: 'mobile', label: 'Mobile Number', type: 'phone', required: true }
+      ];
+
+  fields.forEach(f => {
     const fieldDiv = document.createElement('div');
     fieldDiv.className = 'form-group';
     fieldDiv.innerHTML = `
       <label for="field_${f.key}">${f.label} ${f.required ? '<span style="color:var(--bad)">*</span>' : ''}</label>
-      <input type="${f.type === 'phone' ? 'tel' : 'text'}" id="field_${f.key}" name="${f.key}" placeholder="Enter ${f.label}" ${f.required ? 'required' : ''}>
+      <input type="${f.type === 'phone' ? 'tel' : (f.type === 'number' ? 'number' : 'text')}" id="field_${f.key}" name="${f.key}" placeholder="Enter ${f.label}" ${f.required ? 'required' : ''}>
     `;
     form.appendChild(fieldDiv);
   });
@@ -772,6 +789,47 @@ function populateModalBaseUrlDropdown() {
   });
 }
 
+function addWfFieldRow(key = '', label = '', type = 'text', required = false) {
+  const container = document.getElementById('wfFieldsContainer');
+  if (!container) return;
+
+  const row = document.createElement('div');
+  row.className = 'wf-field-row';
+  row.innerHTML = `
+    <input type="text" class="wf-field-key" placeholder="Key (e.g. name)" value="${key}" required>
+    <input type="text" class="wf-field-label" placeholder="Label (e.g. Full Name)" value="${label}" required>
+    <select class="wf-field-type styled-select">
+      <option value="text" ${type === 'text' ? 'selected' : ''}>Text</option>
+      <option value="phone" ${type === 'phone' ? 'selected' : ''}>Phone</option>
+      <option value="number" ${type === 'number' ? 'selected' : ''}>Number</option>
+    </select>
+    <label class="wf-field-req-label">
+      <input type="checkbox" class="wf-field-req" ${required ? 'checked' : ''}> Req
+    </label>
+    <button type="button" class="btn danger-btn sm-btn remove-field-btn" title="Remove Field">&times;</button>
+  `;
+
+  row.querySelector('.remove-field-btn').addEventListener('click', () => {
+    row.remove();
+  });
+
+  container.appendChild(row);
+}
+
+function renderWfModalFields(fields = []) {
+  const container = document.getElementById('wfFieldsContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (fields && fields.length > 0) {
+    fields.forEach(f => addWfFieldRow(f.key, f.label, f.type, f.required));
+  } else {
+    // Default fallback rows for any new or unconfigured workflow
+    addWfFieldRow('name', 'Recipient Name', 'text', true);
+    addWfFieldRow('mobile', 'Mobile Number', 'phone', true);
+  }
+}
+
 function openWorkflowModal(wf = null) {
   document.getElementById('workflowModal').classList.remove('hidden');
   populateModalBaseUrlDropdown();
@@ -782,12 +840,14 @@ function openWorkflowModal(wf = null) {
     document.getElementById('wfModalWorkflowId').value = wf.workflowId;
     document.getElementById('wfModalCompanyId').value = wf.companyId;
     document.getElementById('wfModalBaseUrlSelect').value = wf.baseUrl;
+    renderWfModalFields(wf.fields);
   } else {
     document.getElementById('modalTitle').textContent = 'Add Workflow';
     document.getElementById('wfModalId').value = '';
     document.getElementById('wfModalDisplayName').value = '';
     document.getElementById('wfModalWorkflowId').value = '';
     document.getElementById('wfModalCompanyId').value = '3a4fc4a1-30ae-4cfd-a352-b1d3039da6c4';
+    renderWfModalFields([]);
   }
 }
 
@@ -803,20 +863,60 @@ async function handleSaveWorkflow(e) {
   const companyId = document.getElementById('wfModalCompanyId').value;
   const baseUrl = document.getElementById('wfModalBaseUrlSelect').value;
 
+  const fieldRows = document.querySelectorAll('#wfFieldsContainer .wf-field-row');
+  const fields = [];
+  fieldRows.forEach(row => {
+    const key = row.querySelector('.wf-field-key').value.trim();
+    const label = row.querySelector('.wf-field-label').value.trim();
+    const type = row.querySelector('.wf-field-type').value;
+    const required = row.querySelector('.wf-field-req').checked;
+    if (key && label) {
+      fields.push({ key, label, type, required });
+    }
+  });
+
   try {
     const res = await fetch('/api/workflows', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: id || undefined, displayName, workflowId, companyId, baseUrl })
+      body: JSON.stringify({ id: id || undefined, displayName, workflowId, companyId, baseUrl, fields })
     });
     const data = await res.json();
     if (data.ok) {
       closeWorkflowModal();
       await loadWorkflows();
+      if (selectedWorkflow && (selectedWorkflow.id === id || selectedWorkflow.workflowId === workflowId)) {
+        selectedWorkflow = workflows.find(w => w.id === (id || selectedWorkflow.id)) || selectedWorkflow;
+        renderWorkflowForm();
+      }
     }
   } catch (err) {
     alert(err.message);
   }
+}
+
+function downloadCsvTemplate() {
+  if (!selectedWorkflow) return;
+  const fields = (selectedWorkflow.fields && selectedWorkflow.fields.length > 0)
+    ? selectedWorkflow.fields
+    : [
+        { key: 'name', label: 'Recipient Name' },
+        { key: 'mobile', label: 'Mobile Number' }
+      ];
+
+  const headers = fields.map(f => f.key);
+  const sampleValues = fields.map(f => f.key === 'mobile' ? '9876543210' : (f.key === 'name' ? 'John Doe' : 'Sample Value'));
+
+  const csvContent = headers.join(',') + '\n' + sampleValues.join(',');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${(selectedWorkflow.displayName || 'workflow').replace(/\s+/g, '_')}_sample.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function openBaseUrlModal() {
