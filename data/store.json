@@ -121,9 +121,15 @@
         },
         {
           "key": "mobile",
-          "label": "Mobile Number",
+          "label": "Phone",
           "type": "phone",
           "required": true
+        },
+        {
+          "key": "nefs_id",
+          "label": "NEFS ID",
+          "type": "text",
+          "required": false
         }
       ]
     }
