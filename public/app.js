@@ -796,12 +796,12 @@ function addWfFieldRow(key = '', label = '', type = 'text', required = false) {
   const row = document.createElement('div');
   row.className = 'wf-field-row';
   row.innerHTML = `
-    <input type="text" class="wf-field-key" placeholder="Key (e.g. name)" value="${key}" required>
-    <input type="text" class="wf-field-label" placeholder="Label (e.g. Full Name)" value="${label}" required>
+    <input type="text" class="wf-field-key" placeholder="API Key (e.g. mobile)" value="${key}" required title="Internal variable key sent in payload or CSV column name">
+    <input type="text" class="wf-field-label" placeholder="Form Label (e.g. Mobile Number)" value="${label}" required title="Human readable label displayed on the screen">
     <select class="wf-field-type styled-select">
       <option value="text" ${type === 'text' ? 'selected' : ''}>Text</option>
-      <option value="phone" ${type === 'phone' ? 'selected' : ''}>Phone</option>
-      <option value="number" ${type === 'number' ? 'selected' : ''}>Number</option>
+      <option value="phone" ${type === 'phone' ? 'selected' : ''}>Phone Number</option>
+      <option value="number" ${type === 'number' ? 'selected' : ''}>Numeric Value</option>
     </select>
     <label class="wf-field-req-label">
       <input type="checkbox" class="wf-field-req" ${required ? 'checked' : ''}> Req
